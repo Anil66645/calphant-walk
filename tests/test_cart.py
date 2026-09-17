@@ -1,5 +1,10 @@
+import os
+import sys
 import unittest
-from cart import is_empty, item_count, total
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from cart import has_price, is_empty, item_count, total
 
 
 class TotalTest(unittest.TestCase):
@@ -27,6 +32,17 @@ class IsEmptyTest(unittest.TestCase):
 
     def test_cart_with_several_items_is_not_empty(self):
         self.assertFalse(is_empty([(2, 3), (5, 1)]))
+
+
+class HasPriceTest(unittest.TestCase):
+    def test_cart_with_matching_price(self):
+        self.assertTrue(has_price([(2, 3), (5, 1)], 5))
+
+    def test_cart_without_matching_price(self):
+        self.assertFalse(has_price([(2, 3), (5, 1)], 4))
+
+    def test_empty_cart_has_no_price(self):
+        self.assertFalse(has_price([], 2))
 
 
 if __name__ == "__main__":
