@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CRISPR Guide Designer</title>
+</head>
+<body>
+  <h1>CRISPR Guide Designer</h1>
+  <form method="POST" action="/">
+    <label for="sequence">Paste DNA sequence:</label><br>
+    <textarea id="sequence" name="sequence" rows="10" cols="80">{{ sequence or '' }}</textarea><br>
+    <button type="submit">Design Guides</button>
+  </form>
+
+  {% if guides %}
+  <h2>Ranked Guides</h2>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Guide Sequence</th>
+        <th>Position</th>
+        <th>Strand</th>
+        <th>On-Target Score</th>
+        <th>Off-Target Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for guide in guides %}
+      <tr>
+        <td>{{ guide.sequence }}</td>
+        <td>{{ guide.position }}</td>
+        <td>{{ guide.strand }}</td>
+        <td>{{ guide.on_target }}</td>
+        <td>{{ guide.off_target }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p><a href="/download">Download results as CSV</a></p>
+  {% endif %}
+</body>
+</html>
